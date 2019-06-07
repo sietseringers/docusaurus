@@ -20,7 +20,12 @@ import WebpackDevServer from 'webpack-dev-server';
 import merge from 'webpack-merge';
 import {normalizeUrl} from '@docusaurus/utils';
 import {load, CLIOptions} from '../server';
-import {CONFIG_FILE_NAME, STATIC_DIR_NAME, DEFAULT_PORT} from '../constants';
+import {
+  CONFIG_FILE_NAME,
+  STATIC_DIR_NAME,
+  DEFAULT_PORT,
+  DOCUSAURUS_ASCII,
+} from '../constants';
 import {createClientConfig} from '../webpack/client';
 import {applyConfigureWebpack} from '../webpack/utils';
 
@@ -73,7 +78,6 @@ export async function start(
 
   const protocol: string = process.env.HTTPS === 'true' ? 'https' : 'http';
   const port: number = await getPort(cliOptions.port);
-  console.log(chalk.cyan(`Server starting on port ${port}...`));
   const host: string = getHost(cliOptions.host);
   const {baseUrl} = props;
   const urls = prepareUrls(protocol, host, port);
@@ -142,6 +146,8 @@ export async function start(
     if (err) {
       console.log(err);
     }
+    console.log(chalk.cyan(DOCUSAURUS_ASCII));
+    console.log(chalk.cyan(`You can now visit your site at ${openUrl}`));
     openBrowser(openUrl);
   });
   ['SIGINT', 'SIGTERM'].forEach(sig => {
