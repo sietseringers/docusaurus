@@ -73,7 +73,7 @@ function mdToHtml(Metadata, siteConfig) {
     if (metadata.language !== 'en' || metadata.original_id) {
       return;
     }
-    let htmlLink = baseUrl + metadata.permalink.replace('/next/', '/');
+    let htmlLink = baseUrl + metadata.permalink.replace(/(\/?)next\//, '$1');
 
     const baseDocsPart = `${baseUrl}${docsUrl ? `${docsUrl}/` : ''}`;
 
